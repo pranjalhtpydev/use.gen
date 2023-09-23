@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generate Usernames and Passwords</title>
+    <style>
+        body {
+            background-color: #FFA500; /* Orange background */
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            background-color: #FFE4B5; /* Light Orange container */
+            width: 400px;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 0 auto;
+            text-align: center;
+            margin-top: 100px;
+        }
+        button {
+            background-color: #FF4500; /* Darker orange button */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        button:hover {
+            background-color: #FF6347; /* Lighter orange on hover */
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        a {
+            color: #333;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Generate Usernames and Passwords</h2>
+        <button id="generateButton">Generate</button>
+        <button id="clearButton">Clear List</button>
+        <ul id="resultList"></ul>
+        <p><a id="loginLink" href="#" style="display:none;">Login Page</a></p>
+    </div>
+    <script>
+        const usernamePasswordPairs = {
+            "usr-verify": "usr-verify-passwd",
+            "getaccess-usr": "accessme-passwd",
+            "artist-usr": "artist-passwd"
+        };
+
+        const loginPageLink = document.getElementById("loginLink");
+
+        document.getElementById("generateButton").addEventListener("click", () => {
+            const username = getRandomKey(usernamePasswordPairs);
+            const password = usernamePasswordPairs[username];
+            const resultList = document.getElementById("resultList");
+            const listItem = document.createElement("li");
+            listItem.innerHTML = `<strong>Username:</strong> ${username}, <strong>Password:</strong> ${password}`;
+            resultList.appendChild(listItem);
+
+            // Show and set the login page link
+            loginPageLink.style.display = "block";
+            loginPageLink.href = "form.html";
+        });
+
+        document.getElementById("clearButton").addEventListener("click", () => {
+            const resultList = document.getElementById("resultList");
+            resultList.innerHTML = "";
+
+            // Hide the login page link when clearing the list
+            loginPageLink.style.display = "none";
+        });
+
+        function getRandomKey(obj) {
+            const keys = Object.keys(obj);
+            const randomIndex = Math.floor(Math.random() * keys.length);
+            return keys[randomIndex];
+        }
+    </script>
+</body>
+</html>
